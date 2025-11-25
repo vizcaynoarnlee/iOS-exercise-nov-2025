@@ -180,10 +180,6 @@ The test suite includes mock implementations for testing:
 - `MockEndpoint`: Mock endpoint for testing
 - `MockModel`: Mock data models
 
-### UI Tests
-
-UI tests are available in `DownCopyUITests/` for automated UI testing.
-
 ## Future Improvements
 
 ### Caching
