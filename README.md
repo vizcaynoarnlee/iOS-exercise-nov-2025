@@ -12,6 +12,10 @@ A SwiftUI-based iOS social/dating application featuring swipeable user cards wit
   - User actions: Skip, Date, Down, Flirt
   - Animated markers for Date and Down actions
   - User profile cards displaying name, age, location, and about me information
+- **Image Caching**: Efficient image loading and caching for profile pictures
+  - Automatic caching using `URLCache` for improved performance
+  - Concurrency-safe image loading with proper task management
+  - Seamless loading experience with progress indicators
 - **Visitors View**: Placeholder view (to be implemented)
 - **Chats View**: Placeholder view (to be implemented)
 - **Tab-based Navigation**: Seamless navigation between Cards, Visitors, and Chats tabs
@@ -31,6 +35,9 @@ DownCopy follows a clean, modular architecture:
 - **ViewModels**: Observable view models that manage state and business logic
 - **Endpoints**: Protocol-based endpoint definitions for API requests
 - **Models**: Codable data models (e.g., `User`)
+- **CachedAsyncImage**: Custom SwiftUI view component for asynchronous image loading with built-in caching using `URLCache`
+  - Source: [Enable Image Cache in AsyncImage SwiftUI](https://medium.com/@jakir/enable-image-cache-in-asyncimage-swiftui-db4b9c34603f) by Jakir
+  - Modified and improved with concurrency safety, task management, and proper cancellation handling
 
 ## Requirements
 
@@ -71,9 +78,12 @@ DownCopy/
 │   │   └── Visitors/
 │   │       └── VisitorsView.swift
 │   ├── Common/
-│   │   └── Enumeration/
-│   │       ├── TabType.swift
-│   │       └── ViewState.swift
+│   │   ├── Components/
+│   │   ├── Enumeration/
+│   │   │   ├── TabType.swift
+│   │   │   └── ViewState.swift
+│   │   └── Utilities/
+│   │       └── CachedAsyncImage.swift
 │   └── Resources/
 │       └── Preview Content/
 │           └── Assets.xcassets/
@@ -184,7 +194,6 @@ The test suite includes mock implementations for testing:
 
 ### Caching
 - **User data caching**: Implement caching for user data to reduce API calls
-- **User image caching**: Implement image caching for profile pictures to improve performance
 
 ### Pagination
 - Implement proper pagination for user cards instead of looping through the same set
@@ -212,6 +221,14 @@ The test suite includes mock implementations for testing:
 ### Configuration
 - Move base URL and other configuration values to `Config.plist`
 - Support different configurations for development, staging, and production environments
+
+## Credits
+
+### CachedAsyncImage
+
+The `CachedAsyncImage` component is based on the implementation from:
+- **Source**: [Enable Image Cache in AsyncImage SwiftUI](https://medium.com/@jakir/enable-image-cache-in-asyncimage-swiftui-db4b9c34603f) by Jakir
+- **Modifications**: Enhanced with concurrency safety, proper task management, and cancellation handling to meet production standards
 
 ## Author
 

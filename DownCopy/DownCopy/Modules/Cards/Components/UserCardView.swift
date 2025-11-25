@@ -15,17 +15,10 @@ struct UserCardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Need to implement image caching
-                AsyncImage(url: user.profilePicUrl) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } placeholder: {
-                    Color.gray
-                }
-                .frame(width: geometry.size.width - 8, height: geometry.size.height - 8)
-                .cornerRadius(16)
-                .clipped()
+                CachedAsyncImage(url: user.profilePicUrl)
+                    .frame(width: geometry.size.width - 8, height: geometry.size.height - 8)
+                    .cornerRadius(16)
+                    .clipped()
 
                 LinearGradient(
                     gradient: Gradient(colors: [Color.black.opacity(0.8), Color.clear]),
