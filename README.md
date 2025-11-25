@@ -2,6 +2,8 @@
 
 A SwiftUI-based iOS social/dating application featuring swipeable user cards with interactive actions.
 
+![DEMO](demo.GIF)
+
 ## Scope
 
 **Note**: This project currently focuses on the **Cards view** implementation. The Visitors and Chats views are placeholder implementations for future development.
