@@ -13,6 +13,7 @@ struct CardsView: View {
     @State var viewModel: CardsViewModel = .init()
     @State var showDateMarkerView: Bool = false
     @State var showDownMarkerView: Bool = false
+    @State private var isProcessingAction: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -75,29 +76,36 @@ struct CardsView: View {
             HStack(alignment: .center, spacing: 20) {
                 // Skip Button
                 GrayButton(title: "Skip", imageName: "xmark") {
-                    moveToNext()
+                    handleSkipAction()
                 }
+                .disabled(isProcessingAction)
 
                 // Date Button
                 WhiteButton(title: "Date", imageName: "heart.fill") {
                     dateUser()
                 }
+                .disabled(isProcessingAction)
 
                 // Down Button
                 WhiteButton(title: "Down", imageName: "flame") {
                     downUser()
                 }
+                .disabled(isProcessingAction)
 
                 // Flirt Button
                 GrayButton(title: "Flirt", imageName: "message.fill") {
-                    tabRouter.switchTab(.chats)
+                    handleFlirtAction()
                 }
+                .disabled(isProcessingAction)
             }
             .padding(.bottom, 10)
         }
     }
 
     func dateUser() {
+        guard !isProcessingAction else { return }
+        
+        isProcessingAction = true
         withAnimation(.easeIn(duration: 0.5)) {
             showDateMarkerView = true
         } completion: {
@@ -106,6 +114,9 @@ struct CardsView: View {
     }
 
     func downUser() {
+        guard !isProcessingAction else { return }
+        
+        isProcessingAction = true
         withAnimation(.easeIn(duration: 0.5)) {
             showDownMarkerView = true
         } completion: {
@@ -113,11 +124,27 @@ struct CardsView: View {
         }
     }
 
+    func handleSkipAction() {
+        guard !isProcessingAction else { return }
+        
+        isProcessingAction = true
+        moveToNext()
+    }
+
+    func handleFlirtAction() {
+        guard !isProcessingAction else { return }
+        
+        tabRouter.switchTab(.chats)
+        isProcessingAction = false
+    }
+
     func moveToNext() {
         withAnimation {
             showDateMarkerView = false
             showDownMarkerView = false
             viewModel.moveToNext()
+        } completion: {
+            isProcessingAction = false
         }
     }
 }
