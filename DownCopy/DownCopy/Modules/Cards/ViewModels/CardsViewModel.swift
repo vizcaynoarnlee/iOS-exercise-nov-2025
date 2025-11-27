@@ -35,11 +35,18 @@ final class CardsViewModel: CardsViewModelProtocol {
             users = try await apiClient.getArray(endpoint: UserRequestEndpoint.getUsers)
             viewState = .loaded
         } catch {
-            ErrorReporter.log(error: error)
+            ErrorReporter.log(
+                error: error,
+                userInfo: [
+                    "object": "CardsViewModel",
+                    "issue": "UserRequestEndpoint.getUsers",
+                    "timestamp": ISO8601DateFormatter().string(from: Date())
+                ]
+            )
             viewState = .error(error)
         }
     }
-    
+
     func moveToNext() {
         // pagination should be implemented to fetch the next array users
         // end of list should display alert

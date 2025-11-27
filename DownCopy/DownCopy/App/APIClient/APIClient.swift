@@ -81,7 +81,6 @@ final class APIClient: APIClientProtocol {
             return dataArray
         } catch {
             debugPrint(error)
-            ErrorReporter.log(error: error)
             // means we have an incorrect map of model
             // means api response data is incorrect
             throw APIClientError.invalidJsonDecoding

@@ -88,7 +88,14 @@ struct CachedAsyncImage: View {
                 image = Image(uiImage: uiImage)
             }
         } catch {
-            ErrorReporter.log(error: error)
+            ErrorReporter.log(
+                error: error,
+                userInfo: [
+                    "object": "CachedAsyncImage",
+                    "issue": "url: \(url)",
+                    "timestamp": ISO8601DateFormatter().string(from: Date())
+                ]
+            )
             // Handle any errors here (e.g., network failure)
             // Error is silently handled - image remains nil and ProgressView continues
             guard Task.isCancelled == false else { return }

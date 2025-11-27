@@ -20,7 +20,14 @@ struct DownCopyApp: App {
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
-            ErrorReporter.log(error: error)
+            ErrorReporter.log(
+                error: error,
+                userInfo: [
+                    "object": "DownCopyApp",
+                    "issue": "sharedModelContainer: ModelContainer",
+                    "timestamp": ISO8601DateFormatter().string(from: Date())
+                ]
+            )
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
