@@ -53,9 +53,9 @@ final class APIClient: APIClientProtocol {
         urlRequest.httpMethod = endpoint.method.rawValue
 
         // If method is post and we have json parameters
-        if endpoint.method == .POST, let jsonParamerters = endpoint.jsonParamerters {
+        if endpoint.method == .POST, let jsonParameters = endpoint.jsonParameters {
             urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.httpBody = try JSONEncoder().encode(jsonParamerters)
+            urlRequest.httpBody = try JSONEncoder().encode(jsonParameters)
         }
 
         let (data, response) = try await urlSession.data(for: urlRequest)

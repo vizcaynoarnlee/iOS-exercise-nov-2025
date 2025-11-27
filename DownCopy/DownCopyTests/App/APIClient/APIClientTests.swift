@@ -182,7 +182,7 @@ struct APIClientTests {
         let endpoint = MockEndpoint(
             path: "test/path",
             method: .POST,
-            jsonParamerters: postBody
+            jsonParameters: postBody
         )
 
         // Set handler immediately before the async call to avoid race conditions

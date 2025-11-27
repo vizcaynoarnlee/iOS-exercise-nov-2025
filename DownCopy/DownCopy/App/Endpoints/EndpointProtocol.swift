@@ -21,10 +21,10 @@ protocol EndpointProtocol {
     // Query items: url query items when method is GET
     var urlQueryItems: [URLQueryItem]? { get }
     // Parameter items: JSON parameter body when method is POST
-    var jsonParamerters: (any Encodable)? { get }
+    var jsonParameters: (any Encodable)? { get }
 }
 
 extension EndpointProtocol {
     var urlQueryItems: [URLQueryItem]? { nil }
-    var jsonParamerters: (any Encodable)? { nil }
+    var jsonParameters: (any Encodable)? { nil }
 }

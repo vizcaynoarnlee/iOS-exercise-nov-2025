@@ -73,21 +73,21 @@ struct UserRequestEndpointTests {
         #expect(endpoint.urlQueryItems == nil)
     }
 
-    @Test("getUsers should have nil jsonParamerters by default")
+    @Test("getUsers should have nil jsonParameters by default")
     func testGetUsersJSONParameters() {
         // Given
         let endpoint = UserRequestEndpoint.getUsers
 
         // Then
-        #expect(endpoint.jsonParamerters == nil)
+        #expect(endpoint.jsonParameters == nil)
     }
 
-    @Test("getVisitors should have nil jsonParamerters by default")
+    @Test("getVisitors should have nil jsonParameters by default")
     func testGetVisitorsJSONParameters() {
         // Given
         let endpoint = UserRequestEndpoint.getVisitors
 
         // Then
-        #expect(endpoint.jsonParamerters == nil)
+        #expect(endpoint.jsonParameters == nil)
     }
 }
