@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-public struct CachedAsyncImage: View {
+struct CachedAsyncImage: View {
     private let url: URL?
     @State private var image: Image? = nil
+    @State private var loadError: Error? = nil
     @State private var isLoading = false
     @State private var loadTask: Task<Void, Never>?
 
@@ -22,18 +23,34 @@ public struct CachedAsyncImage: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+        } else if loadError != nil {
+            errorView
         } else {
-            ProgressView()
-                .onAppear {
-                    loadTask = Task { @MainActor in
-                        await loadImage()
-                    }
-                }
-                .onDisappear {
-                    loadTask?.cancel()
-                    loadTask = nil
-                }
+            progressView
         }
+    }
+
+    private var errorView: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(.yellow)
+                .font(.largeTitle)
+            Text("Failed to load image.")
+                .font(.caption)
+        }
+    }
+
+    private var progressView: some View {
+        ProgressView()
+            .onAppear {
+                loadTask = Task { @MainActor in
+                    await loadImage()
+                }
+            }
+            .onDisappear {
+                loadTask?.cancel()
+                loadTask = nil
+            }
     }
 
     @MainActor
@@ -51,7 +68,7 @@ public struct CachedAsyncImage: View {
         if let cachedResponse = URLCache.shared.cachedResponse(for: request),
            let cachedImage = UIImage(data: cachedResponse.data) {
             guard Task.isCancelled == false else { return }
-            self.image = Image(uiImage: cachedImage)
+            image = Image(uiImage: cachedImage)
             return
         }
 
@@ -68,12 +85,13 @@ public struct CachedAsyncImage: View {
 
             if let uiImage = UIImage(data: data) {
                 guard Task.isCancelled == false else { return }
-                self.image = Image(uiImage: uiImage)
+                image = Image(uiImage: uiImage)
             }
         } catch {
             // Handle any errors here (e.g., network failure)
             // Error is silently handled - image remains nil and ProgressView continues
             guard Task.isCancelled == false else { return }
+            loadError = error
         }
     }
 }
