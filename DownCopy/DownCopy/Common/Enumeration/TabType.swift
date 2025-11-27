@@ -27,7 +27,7 @@ enum TabType: Int, Identifiable {
         }
     }
 
-    var sytemImage: String {
+    var systemImage: String {
         switch self {
         case .cards:
             return "square.stack"

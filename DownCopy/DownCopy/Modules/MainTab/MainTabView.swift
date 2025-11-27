@@ -13,7 +13,7 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $tabRouter.selectedIndex) {
             ForEach(tabRouter.tabs) { tab in
-                Tab(tab.title, systemImage: tab.sytemImage, value: tab.id) {
+                Tab(tab.title, systemImage: tab.systemImage, value: tab.id) {
                     viewForTab(tab)
                 }
             }
