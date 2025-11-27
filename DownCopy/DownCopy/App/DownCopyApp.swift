@@ -5,8 +5,8 @@
 //  Created by Arnlee Vizcayno on 11/25/25.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct DownCopyApp: App {
@@ -20,6 +20,7 @@ struct DownCopyApp: App {
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
+            ErrorReporter.log(error: error)
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()

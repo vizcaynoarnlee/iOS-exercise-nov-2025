@@ -35,6 +35,7 @@ final class CardsViewModel: CardsViewModelProtocol {
             users = try await apiClient.getArray(endpoint: UserRequestEndpoint.getUsers)
             viewState = .loaded
         } catch {
+            ErrorReporter.log(error: error)
             viewState = .error(error)
         }
     }
