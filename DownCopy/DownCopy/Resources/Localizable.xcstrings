@@ -1,0 +1,37 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@, %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$lld"
+          }
+        }
+      }
+    },
+    "About me" : {
+
+    },
+    "Chats" : {
+      "extractionState" : "manual"
+    },
+    "Chats Tab" : {
+
+    },
+    "loading..." : {
+
+    },
+    "Location" : {
+
+    },
+    "Visitors" : {
+
+    },
+    "Visitors Tab" : {
+
+    }
+  },
+  "version" : "1.0"
+}
