@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardsView: View {
     @EnvironmentObject var tabRouter: TabRouter
-    
+
     @State var viewModel: CardsViewModel = .init()
     @State var showDateMarkerView: Bool = false
     @State var showDownMarkerView: Bool = false
@@ -25,7 +25,7 @@ struct CardsView: View {
                     contentView
 
                 case let .error(error):
-                    Text(error.localizedDescription)
+                    ErrorView(errorMessage: error.localizedDescription)
                 }
             }
             .task {
@@ -41,18 +41,18 @@ struct CardsView: View {
             tabView
 
             controlView
-            
+
             if showDateMarkerView {
                 MarkerView(title: "Date")
             }
-            
+
             if showDownMarkerView {
                 MarkerView(title: "Down")
             }
         }
         .shadow(color: .gray, radius: 4)
     }
-    
+
     var tabView: some View {
         TabView(selection: $viewModel.selectedUserIndex) {
             ForEach(Array(viewModel.users.enumerated()), id: \.1.id) { index, user in
@@ -78,12 +78,12 @@ struct CardsView: View {
                 WhiteButton(title: "Date", imageName: "heart.fill") {
                     dateUser()
                 }
-                
+
                 // Down Button
                 WhiteButton(title: "Down", imageName: "flame") {
                     downUser()
                 }
-                
+
                 // Flirt Button
                 GrayButton(title: "Flirt", imageName: "message.fill") {
                     tabRouter.switchTab(.chats)
@@ -92,7 +92,7 @@ struct CardsView: View {
             .padding(.bottom, 10)
         }
     }
-    
+
     func dateUser() {
         withAnimation(.easeIn(duration: 0.5)) {
             showDateMarkerView = true
@@ -100,7 +100,7 @@ struct CardsView: View {
             moveToNext()
         }
     }
-    
+
     func downUser() {
         withAnimation(.easeIn(duration: 0.5)) {
             showDownMarkerView = true
@@ -108,7 +108,7 @@ struct CardsView: View {
             moveToNext()
         }
     }
-    
+
     func moveToNext() {
         withAnimation {
             showDateMarkerView = false

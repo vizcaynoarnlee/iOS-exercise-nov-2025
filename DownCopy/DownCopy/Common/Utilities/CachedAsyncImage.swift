@@ -24,7 +24,7 @@ struct CachedAsyncImage: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
         } else if loadError != nil {
-            errorView
+            ErrorView(errorMessage: "Failed to load image.")
         } else {
             progressView
         }
