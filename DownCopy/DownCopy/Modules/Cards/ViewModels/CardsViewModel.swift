@@ -34,7 +34,15 @@ final class CardsViewModel: CardsViewModelProtocol {
         
         viewState = .loading
         do {
-            users = try await apiClient.getArray(endpoint: UserRequestEndpoint.getUsers)
+            // Check for cancellation
+            guard Task.isCancelled == false else { return }
+            
+            let users: [User] = try await apiClient.getArray(endpoint: UserRequestEndpoint.getUsers)
+            
+            // Check for cancellation
+            guard Task.isCancelled == false else { return }
+            
+            self.users = users
             viewState = .loaded
         } catch {
             ErrorReporter.log(
@@ -45,6 +53,8 @@ final class CardsViewModel: CardsViewModelProtocol {
                     "timestamp": ISO8601DateFormatter().string(from: Date())
                 ]
             )
+            // Check for cancellation
+            guard Task.isCancelled == false else { return }
             viewState = .error(error)
         }
     }
