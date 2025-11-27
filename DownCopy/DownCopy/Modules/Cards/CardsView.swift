@@ -38,9 +38,13 @@ struct CardsView: View {
 
     var contentView: some View {
         ZStack {
-            tabView
-
-            controlView
+            if viewModel.users.isEmpty {
+                EmptyView(message: "No users found.")
+            } else {
+                tabView
+                
+                controlView
+            }
 
             if showDateMarkerView {
                 MarkerView(title: "Date")

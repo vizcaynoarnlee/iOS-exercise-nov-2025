@@ -30,6 +30,8 @@ final class CardsViewModel: CardsViewModelProtocol {
     }
 
     func loadUsers() async {
+        guard viewState != .loading else { return }
+        
         viewState = .loading
         do {
             users = try await apiClient.getArray(endpoint: UserRequestEndpoint.getUsers)
